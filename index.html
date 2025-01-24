@@ -1,37 +1,47 @@
-#include <cppcms/application.h>
-#include <cppcms/service.h>
-#include <cppcms/template.h>
-#include <cppcms/http_response.h>
-#include <cppcms/url_dispatcher.h>
-#include <cppcms/url_router.h>
-#include <string>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biodata</title>
+    <style>
+        body {
+            background-color: #007BFF; /* Warna latar belakang biru */
+            font-family: Arial, sans-serif;
+            color: white; /* Warna teks putih */
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Latar belakang semi-transparan */
+            border-radius: 10px;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
 
-class biodata_application : public cppcms::application {
-public:
-    biodata_application(cppcms::service& srv) : cppcms::application(srv) {
-        dispatcher().assign("/biodata", &biodata_application::show_biodata, this);
-    }
+    <div class="container">
+        <h1>Biodata Saya</h1>
+        <p><strong>Nama:</strong> Yasir mudrik khoirulloh</p>
+        <p><strong>Umur:</strong> 20 Tahun</p>
+        <p><strong>Alamat:</strong> Banjarnegara,Sigaluh, sawal </p>
+        <p><strong>Email:</strong> yasirmudrikkhoirulloh2323@gmail.com</p>
+        <p><strong>Hobi:</strong> , Bermain game, Coding</p>
+    </div>
 
-    void show_biodata() {
-        cppcms::json::value data;
-        data["Nama"] = "Yasir Mudrik Khoirulloh";
-        data["usia"] = 20;
-        data["alamat"] = "Sawal, Sigaluh, Banjarnegara ";
-        data["email"] = "yasirmudrikkhoirulloh2323@email.com";
-        data["Status"] = "Mahasiswa";
-
-        render("biodata", data);
-    }
-};
-
-int main(int argc, char* argv[]) {
-    try {
-        cppcms::service srv(argc, argv);
-        srv.applications_pool().add(new biodata_application(srv));
-        srv.run();
-    } catch (std::exception& e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-        return 1;
-    }
-    return 0;
-}
+</body>
+</html>
