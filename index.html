@@ -1,0 +1,37 @@
+#include <cppcms/application.h>
+#include <cppcms/service.h>
+#include <cppcms/template.h>
+#include <cppcms/http_response.h>
+#include <cppcms/url_dispatcher.h>
+#include <cppcms/url_router.h>
+#include <string>
+
+class biodata_application : public cppcms::application {
+public:
+    biodata_application(cppcms::service& srv) : cppcms::application(srv) {
+        dispatcher().assign("/biodata", &biodata_application::show_biodata, this);
+    }
+
+    void show_biodata() {
+        cppcms::json::value data;
+        data["Nama"] = "Yasir Mudrik Khoirulloh";
+        data["usia"] = 20;
+        data["alamat"] = "Sawal, Sigaluh, Banjarnegara ";
+        data["email"] = "yasirmudrikkhoirulloh2323@email.com";
+        data["Status"] = "Mahasiswa";
+
+        render("biodata", data);
+    }
+};
+
+int main(int argc, char* argv[]) {
+    try {
+        cppcms::service srv(argc, argv);
+        srv.applications_pool().add(new biodata_application(srv));
+        srv.run();
+    } catch (std::exception& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+        return 1;
+    }
+    return 0;
+}
